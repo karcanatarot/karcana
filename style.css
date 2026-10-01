@@ -1,1 +1,59 @@
+@font-face {
+    font-family: "Britney";
+    src: url("assets/Britney-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+}
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+    background: #080817;
+}
+
+/* Moon video */
+
+.background-video {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    z-index: -1;
+}
+
+/* Logo */
+
+.content {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+h1 {
+    font-family: "Britney", sans-serif;
+    font-weight: 700;
+    font-size: clamp(5rem, 12vw, 10rem);
+    color: white;
+
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
