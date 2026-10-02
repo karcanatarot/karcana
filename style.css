@@ -51,7 +51,6 @@ body {
 
     z-index: 1;
 
-    /* Let taps reach the video/page underneath */
     pointer-events: none;
 }
 
@@ -62,4 +61,11 @@ h1 {
     color: #F5F0E6;
 
     text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Hide iOS Safari's native start-playback button when possible */
+
+video::-webkit-media-controls-start-playback-button {
+    display: none !important;
+    -webkit-appearance: none;
 }
