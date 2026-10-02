@@ -26,6 +26,23 @@
         <h1>Karcana</h1>
     </main>
 
+    <script>
+        const video = document.querySelector(".background-video");
+
+        // Explicitly make sure Safari considers the video muted.
+        video.muted = true;
+
+        // Try to start playback immediately.
+        video.play().catch(() => {
+            console.log("Autoplay was blocked.");
+        });
+
+        // If Safari requires a user gesture, start playback on the first tap.
+        document.addEventListener("touchend", () => {
+            video.play().catch(() => {});
+        }, { once: true });
+    </script>
+
 </body>
 
 </html>
