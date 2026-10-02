@@ -29,8 +29,8 @@ body {
     top: 0;
     left: 0;
 
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
 
     object-fit: cover;
 
@@ -50,6 +50,9 @@ body {
     text-align: center;
 
     z-index: 1;
+
+    /* Let taps reach the video/page underneath */
+    pointer-events: none;
 }
 
 h1 {
