@@ -28,6 +28,17 @@
 
 <body>
 
+    <!-- Still image shown while video is not playing -->
+
+    <img
+        class="background-still"
+        src="assets/moon-still.jpg"
+        alt=""
+        aria-hidden="true"
+    >
+
+    <!-- Background video -->
+
     <video
         class="background-video"
         autoplay
@@ -39,6 +50,8 @@
     >
         <source src="assets/full-moon-at-dusk.mp4" type="video/mp4">
     </video>
+
+    <!-- Logo and Explore button -->
 
     <main class="content">
         <div class="logo-container">
@@ -59,14 +72,25 @@
         video.muted = true;
         video.disablePictureInPicture = true;
 
-        video.play().catch(() => {
-            console.log("Autoplay was blocked.");
-        });
+        function startVideo() {
+            video.play().catch(() => {
+                console.log("Video playback requires user interaction.");
+            });
+        }
 
-        document.addEventListener("touchend", () => {
-            video.play().catch(() => {});
+        // Start automatically where the browser allows it.
+        startVideo();
+
+        // Once the video is genuinely playing, reveal it.
+        video.addEventListener("playing", () => {
+            document.body.classList.add("video-playing");
+            document.removeEventListener("pointerdown", startVideo);
         }, { once: true });
 
+        // On iPhone/iPad, the first tap starts the video.
+        document.addEventListener("pointerdown", startVideo);
+
+        // Explore transition.
         exploreButton.addEventListener("click", () => {
             document.body.classList.add("exploring");
         });
