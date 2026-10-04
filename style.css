@@ -31,6 +31,21 @@ body {
     background: #080817;
 }
 
+/* Static first frame */
+
+.background-still {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    object-fit: cover;
+
+    z-index: 0;
+}
+
 /* Full-screen video */
 
 .background-video {
@@ -43,7 +58,17 @@ body {
 
     object-fit: cover;
 
-    z-index: 0;
+    z-index: 1;
+
+    opacity: 0;
+
+    transition: opacity 1s ease;
+}
+
+/* Reveal video once playback has started */
+
+body.video-playing .background-video {
+    opacity: 1;
 }
 
 /* Logo and Explore button */
@@ -58,7 +83,7 @@ body {
 
     text-align: center;
 
-    z-index: 1;
+    z-index: 2;
 
     pointer-events: none;
 
@@ -171,13 +196,20 @@ body.exploring .content {
 body.exploring .background-video {
     transform: scale(1.03);
     opacity: 0;
+}
 
+body.exploring .background-still {
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+body.exploring .background-video {
     transition:
         transform 2s ease,
         opacity 1.5s ease;
 }
 
-/* Hide iOS Safari's native start-playback button when possible */
+/* iOS native playback button */
 
 video::-webkit-media-controls-start-playback-button {
     display: none !important;
@@ -193,5 +225,9 @@ video::-webkit-media-controls-start-playback-button {
         opacity: 1;
         filter: none;
         transform: none;
+    }
+
+    .background-video {
+        transition: none;
     }
 }
