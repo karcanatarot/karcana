@@ -1,8 +1,17 @@
 @font-face {
     font-family: "Britney";
+    src: url("assets/fonts/Britney-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: "Britney";
     src: url("assets/fonts/Britney-Bold.woff2") format("woff2");
     font-weight: 700;
     font-style: normal;
+    font-display: block;
 }
 
 * {
@@ -37,7 +46,7 @@ body {
     z-index: 0;
 }
 
-/* Logo */
+/* Logo and Explore button */
 
 .content {
     position: absolute;
@@ -52,15 +61,124 @@ body {
     z-index: 1;
 
     pointer-events: none;
+
+    transition: opacity 1.2s ease;
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1 {
     font-family: "Britney", sans-serif;
     font-weight: 700;
     font-size: clamp(5rem, 12vw, 10rem);
+
     color: #F5F0E6;
 
     text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(12px);
+
+    animation: karcanaReveal 2.5s ease-out 0.6s forwards;
+}
+
+.explore-button {
+    margin-top: 2rem;
+
+    background: none;
+    border: none;
+
+    color: #F5F0E6;
+
+    font-family: "Britney", sans-serif;
+    font-weight: 400;
+    font-size: 1.1rem;
+
+    letter-spacing: 0.15em;
+
+    cursor: pointer;
+
+    opacity: 0;
+    transform: translateY(8px);
+
+    animation: exploreReveal 1.5s ease-out 2.4s forwards;
+
+    pointer-events: auto;
+}
+
+.explore-button::after {
+    content: "";
+
+    display: block;
+
+    width: 0;
+    height: 1px;
+
+    margin: 0.5rem auto 0;
+
+    background: #F5F0E6;
+
+    transition: width 0.4s ease;
+}
+
+.explore-button:hover::after {
+    width: 100%;
+}
+
+/* Logo animation */
+
+@keyframes karcanaReveal {
+    0% {
+        opacity: 0;
+        filter: blur(8px);
+        transform: translateY(12px);
+    }
+
+    60% {
+        opacity: 0.85;
+        filter: blur(2px);
+        transform: translateY(2px);
+    }
+
+    100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+    }
+}
+
+/* Explore animation */
+
+@keyframes exploreReveal {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 0.8;
+        transform: translateY(0);
+    }
+}
+
+/* Landing page exit */
+
+body.exploring .content {
+    opacity: 0;
+}
+
+body.exploring .background-video {
+    transform: scale(1.03);
+    opacity: 0;
+
+    transition:
+        transform 2s ease,
+        opacity 1.5s ease;
 }
 
 /* Hide iOS Safari's native start-playback button when possible */
@@ -68,4 +186,16 @@ h1 {
 video::-webkit-media-controls-start-playback-button {
     display: none !important;
     -webkit-appearance: none;
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+    h1,
+    .explore-button {
+        animation: none;
+        opacity: 1;
+        filter: none;
+        transform: none;
+    }
 }
