@@ -4,7 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Karcana</title>
+
+    <link
+        rel="preload"
+        href="assets/fonts/Britney-Bold.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin
+    >
+
+    <link
+        rel="preload"
+        href="assets/fonts/Britney-Regular.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin
+    >
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -18,29 +35,41 @@
         loop
         playsinline
         preload="auto"
+        disablepictureinpicture
     >
         <source src="assets/full-moon-at-dusk.mp4" type="video/mp4">
     </video>
 
     <main class="content">
-        <h1>Karcana</h1>
+        <div class="logo-container">
+
+            <h1>Karcana</h1>
+
+            <button class="explore-button">
+                Explore
+            </button>
+
+        </div>
     </main>
 
     <script>
         const video = document.querySelector(".background-video");
+        const exploreButton = document.querySelector(".explore-button");
 
-        // Explicitly make sure Safari considers the video muted.
         video.muted = true;
+        video.disablePictureInPicture = true;
 
-        // Try to start playback immediately.
         video.play().catch(() => {
             console.log("Autoplay was blocked.");
         });
 
-        // If Safari requires a user gesture, start playback on the first tap.
         document.addEventListener("touchend", () => {
             video.play().catch(() => {});
         }, { once: true });
+
+        exploreButton.addEventListener("click", () => {
+            document.body.classList.add("exploring");
+        });
     </script>
 
 </body>
